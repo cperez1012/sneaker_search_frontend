@@ -21,6 +21,7 @@ function getSneakers() {
   .then(response => response.json())
   .then(sneakers => {
     sneakers.data.forEach(sneaker => {
+        // debugger
         // double check how your data is nested in the console so you can successfully access the attributes of each individual object
         const sneakerMarkup = `
           <div data-id=${sneaker.id}>
