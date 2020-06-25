@@ -50,6 +50,32 @@ function createFormHandler(e) {
   postFetch(nameInput, descriptionInput, imageInput, categoryId)
 }
 
-function postFetch(name, description, image_url, category_id) {
-  console.log(name, description, image_url, category_id)
+function postSneaker(name, description, image_url, category_id) {
+  // confirm these values are coming through properly
+  console.log(name, description, image_url, category_id);
+  // build body object
+  let bodyData = {name, description, image_url, category_id}
+
+  fetch(endPoint, {
+    // POST request
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(sneaker => {
+    console.log(sneaker);
+    const sneakerData = sneaker.data
+    // render JSON response
+    const sneakerMarkup = `
+    <div data-id=${sneaker.id}>
+      <img src=${sneakerData.attributes.image_url} height="200" width="250">
+      <h3>${sneakerData.attributes.title}</h3>
+      <p>${sneakerData.attributes.category.name}</p>
+      <button data-id=${sneakerData.id}>edit</button>
+    </div>
+    <br><br>`;
+
+    document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
+  })
 }
