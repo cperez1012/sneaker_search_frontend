@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //     console.log(sneakers);
     // })
   getSneakers()
+
+  const createSneakerForm = document.querySelector("#create-sneaker-form")
+
+  createSneakerForm.addEventListener("submit", (e) => createFormHandler(e))
 })
 
     // function getSneakers() {
@@ -35,4 +39,17 @@ function getSneakers() {
           document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
       })
     })
+}
+
+function createFormHandler(e) {
+  e.preventDefault()
+  const nameInput = document.querySelector('#input-name').value
+  const descriptionInput = document.querySelector('#input-description').value
+  const imageInput = document.querySelector('#input-url').value
+  const categoryId = parseInt(document.querySelector('#categories').value)
+  postFetch(nameInput, descriptionInput, imageInput, categoryId)
+}
+
+function postFetch(name, description, image_url, category_id) {
+  console.log(name, description, image_url, category_id)
 }
