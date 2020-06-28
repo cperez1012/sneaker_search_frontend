@@ -1,7 +1,8 @@
 const endPoint = "http://localhost:3000/api/v1/sneakers"
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  // fetch and load syllabi
+  console.log("DOM is Loaded");
   getSneakers()
 
   const createSneakerForm = document.querySelector("#create-sneaker-form")
@@ -14,35 +15,37 @@ function getSneakers() {
   .then(response => response.json())
   .then(sneakers => {
     sneakers.data.forEach(sneaker => {
-        // debugger
+        debugger
         // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-        const sneakerMarkup = `
-          <div data-id=${sneaker.id}>
-            <img src=${sneaker.attributes.image_url} height="200" width="250">
-            <h3>${sneaker.attributes.name}</h3>
-            <p>${sneaker.attributes.category.name}</p>
-            <button data-id=${sneaker.id}>edit</button>
-          </div>
-          <br><br>`;
+        // const sneakerMarkup = `
+        //   <div data-id=${sneaker.id}>
+        //     <img src=${sneaker.attributes.image_url} height="200" width="250">
+        //     <h3>${sneaker.attributes.name}</h3>
+        //     <p>${sneaker.attributes.category.name}</p>
+        //     <button data-id=${sneaker.id}>edit</button>
+        //   </div>
+        //   <br><br>`;
 
-          document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
-        // render(sneaker)
+        //   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
+        let newSneaker = new Sneaker(sneaker, sneaker.attributes)
+        render(sneaker)
       })
+      // .catch(err => console.log(err))
     })
 }
 
-// function render(sneaker) {
-//   const sneakerMarkup = `
-//   <div data-id=${sneaker.id}>
-//     <img src=${sneaker.attributes.image_url} height="200" width="250">
-//     <h3>${sneaker.attributes.name}</h3>
-//     <p>${sneaker.attributes.category.name}</p>
-//     <button data-id=${sneaker.id}>edit</button>
-//   </div>
-//   <br><br>`;
+function render(sneaker) {
+  const sneakerMarkup = `
+    <div data-id=${sneaker.id}>
+      <img src=${sneaker.attributes.image_url} height="200" width="250">
+      <h3>${sneaker.attributes.name}</h3>
+      <p>${sneaker.attributes.category.name}</p>
+      <button data-id=${sneaker.id}>edit</button>
+    </div>
+  <br><br>`;
 
-//   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
-// }
+  document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
+}
 
 function createFormHandler(e) {
   e.preventDefault()
@@ -56,6 +59,7 @@ function createFormHandler(e) {
 function postSneaker(name, description, image_url, category_id) {
   // confirm these values are coming through properly
   // build body object
+  
   let bodyData = {name, description, image_url, category_id}
 
   fetch(endPoint, {
@@ -68,16 +72,16 @@ function postSneaker(name, description, image_url, category_id) {
   .then(sneaker => {
     const sneakerData = sneaker.data
     // render JSON response
-    const sneakerMarkup = `
-    <div data-id=${sneaker.id}>
-      <img src=${sneakerData.attributes.image_url} height="200" width="250">
-      <h3>${sneakerData.attributes.name}</h3>
-      <p>${sneakerData.attributes.category.name}</p>
-      <button data-id=${sneakerData.attributes.id}>edit</button>
-    </div>
-    <br><br>`;
+    // const sneakerMarkup = `
+    // <div data-id=${sneaker.id}>
+    //   <img src=${sneakerData.attributes.image_url} height="200" width="250">
+    //   <h3>${sneakerData.attributes.name}</h3>
+    //   <p>${sneakerData.attributes.category.name}</p>
+    //   <button data-id=${sneakerData.attributes.id}>edit</button>
+    // </div>
+    // <br><br>`;
 
-    document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
-    // render(sneakerData)
+    // document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
+    render(sneakerData)
   })
 }
