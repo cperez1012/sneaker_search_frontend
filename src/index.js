@@ -15,7 +15,7 @@ function getSneakers() {
   .then(response => response.json())
   .then(sneakers => {
     sneakers.data.forEach(sneaker => {
-        debugger
+        // debugger
         // double check how your data is nested in the console so you can successfully access the attributes of each individual object
         // const sneakerMarkup = `
         //   <div data-id=${sneaker.id}>
@@ -28,7 +28,10 @@ function getSneakers() {
 
         //   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
         let newSneaker = new Sneaker(sneaker, sneaker.attributes)
-        render(sneaker)
+       
+        document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();
+        // render(sneaker)
+        // debugger
       })
       // .catch(err => console.log(err))
     })
@@ -82,6 +85,10 @@ function postSneaker(name, description, image_url, category_id) {
     // <br><br>`;
 
     // document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
-    render(sneakerData)
+    // render(sneakerData)
+    // Using the newSneaker defined variable in my post request and changing it to sneakerData
+    let newSneaker = new Sneaker(sneakerData, sneaker.attributes)
+       
+    document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();  
   })
 }
