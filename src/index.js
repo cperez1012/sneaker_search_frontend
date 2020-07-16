@@ -12,14 +12,70 @@ document.addEventListener('DOMContentLoaded', () => {
   const sneakerContainer = document.querySelector('#sneaker-container')
   // render edit form once its clicked
   sneakerContainer.addEventListener("click", e => {
+    
     const id = parseInt(e.target.dataset.id);
     const sneaker = Sneaker.findById(id);
     // console.log(sneaker);
-    document.querySelector('#update-sneaker').innerHTML = sneaker.renderUpdateForm();
+    // debugger
+   if (e.target.dataset.action === 'edit') {
+     console.log('you pressed edit')
+     document.querySelector('#sneaker-container').innerHTML = sneaker.renderUpdateForm();
+    //  document.querySelector('#update-sneaker').addEventListener("submit", (e) => updateFormHandler(e))
+    // document.querySelector(`#update-${e.target.dataset.id}`)
+    debugger
+    //  patchSneaker((sneaker, name, description, image_url, category_id))
+   } else if (e.target.dataset.action === 'delete') {
+     console.log('you pressed delete')
+    //  debugger
+    //  document.querySelector(`${sneaker.id}`).remove()
+    document.querySelector(`#sneaker-${e.target.dataset.id}`).remove()
+     deleteSneaker(sneaker)
     // This is the associated instance 
+   }  
   });
-  document.querySelector('#update-sneaker').addEventListener("click", e => updateFormHandler(e))
-})
+  document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
+});
+
+function updateFormHandler(e) {
+  e.preventDefault();
+  const id = parseInt(e.target.dataset.id)
+  const sneaker = Sneaker.findById(id)
+  const name = e.target.querySelector('#input-name').value
+  const description = e.target.querySelector('#input-description').value
+  const image_url = e.target.querySelector('#input-url').value
+  // debugger
+  const category_id = parseInt(e.target.querySelector('#input-categories').value)
+  
+  patchSneaker(sneaker, name, description, image_url, category_id)
+}
+
+function patchSneaker(sneaker, name, description, image_url, category_id) {
+  const bodyJSON = { name, description, image_url, category_id }
+  fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify(bodyJSON),
+  })
+    .then(response => response.json())
+    // our backend responds with the updated sneaker instance represented as JSON
+    // .then(updatedNote => console.log(updatedNote))
+    .then(sneaker => {
+      console.log(sneaker)
+      // debugger
+      // const updatedSneaker = new Sneaker(sneaker)
+      const sneakerData = sneaker.data  
+      const sneakerAttributes = sneaker.data.attributes
+      debugger
+      let updatedSneaker = new Sneaker(sneakerData, sneakerAttributes)
+      debugger
+      document.querySelector('#sneaker-container').innerHTML += updatedSneaker.renderSneakerCard();
+    })
+        // debugger
+    // })
+}
 
 function getSneakers() {
   fetch(endPoint)
@@ -39,13 +95,26 @@ function getSneakers() {
 
         //   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
         let newSneaker = new Sneaker(sneaker, sneaker.attributes)
-       
+        // debugger
         document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();
         // render(sneaker)
         // debugger
       })
       // .catch(err => console.log(err))
     })
+}
+
+function deleteSneaker(sneaker) {
+
+  fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    
+  })
+  .then(response => response.json());
 }
 
 // function render(sneaker) {
@@ -84,8 +153,7 @@ function postSneaker(name, description, image_url, category_id) {
   })
   .then(response => response.json())
   .then(sneaker => {
-    console.log(sneaker)
-    const sneakerData = sneaker.data
+    // console.log(sneaker)
 
     // render JSON response
     // const sneakerMarkup = `
@@ -100,36 +168,12 @@ function postSneaker(name, description, image_url, category_id) {
     // document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
     // render(sneakerData)
     // Using the newSneaker defined variable in my post request and changing it to sneakerData
-    debugger
-    let newSneaker = new Sneaker(sneakerData, sneakerData.attributes)
+    // debugger
+
+    let newSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
     // debugger
        
     document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();  
-  })
+  }) 
 
-  function updateFormHandler(e) {
-    e.preventDefault();
-    const id = parseInt(e.target.dataset.id)
-    const sneaker = Sneaker.findById(id)
-    const name = e.target.querySelector('#input-name').value
-    const description = e.target.querySelector('#input-description').value
-    const image_url = e.target.querySelector('#input-url').value
-    const category_id = parseInt(e.target.querySelector('#categories').value)
-    patchSneaker(sneaker, name, description, image_url, category_id)
-  }
-
-  function patchSneaker(sneaker, name, description, image_url, category_id) {
-    const bodyJSON = { name, description, image_url, category_id }
-    fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify(bodyJSON),
-    })
-      .then(response => response.json())
-      // our backend responds with the updated sneaker instance represented as JSON
-      .then(updatedNote => console.log(updatedNote))
-  }
 }
