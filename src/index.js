@@ -22,14 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
      document.querySelector('#sneaker-container').innerHTML = sneaker.renderUpdateForm();
     //  document.querySelector('#update-sneaker').addEventListener("submit", (e) => updateFormHandler(e))
     // document.querySelector(`#update-${e.target.dataset.id}`)
-    debugger
+    // debugger
     //  patchSneaker((sneaker, name, description, image_url, category_id))
    } else if (e.target.dataset.action === 'delete') {
      console.log('you pressed delete')
     //  debugger
     //  document.querySelector(`${sneaker.id}`).remove()
-    document.querySelector(`#sneaker-${e.target.dataset.id}`).remove()
+    // debugger
+    document.querySelector(`#delete-${e.target.dataset.id}`)
+    // debugger
      deleteSneaker(sneaker)
+    //  debugger
+     location.reload(endPoint)
     // This is the associated instance 
    }  
   });
