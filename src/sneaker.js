@@ -59,7 +59,6 @@ class Sneaker {
                 <p class="card-text">${this.description}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button data-id=${this.id} type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button data-id=${this.id} id="edit-${this.id}" data-action="edit" data-name="${this.name}" data-description="${this.description}" data-image_url="${this.image_url}" data-category="${this.category}" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     <button data-id=${this.id} id="delete-${this.id}" data-action="delete" data-name="${this.name}" data-description="${this.description}" data-image_url="${this.image_url}" data-category="${this.category}"type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
                   </div>
