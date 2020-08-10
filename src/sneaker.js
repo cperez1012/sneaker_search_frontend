@@ -35,7 +35,7 @@ class Sneaker {
     //   this.image_url =  sneaker.attributes.image_url
     //   this.category.name =  sneaker.attributes.category.name
       // Sneaker.all.push(this)
-      debugger
+      // debugger
     }
     // The constructor allowed us to use this to pass in the sneaker attributes defined above
     renderSneakerCard() {

@@ -68,9 +68,9 @@ function patchSneaker(sneaker, name, description, image_url, category_id) {
       // const updatedSneaker = new Sneaker(sneaker)
       const sneakerData = sneaker.data  
       const sneakerAttributes = sneaker.data.attributes
-      debugger
+      // debugger
       let updatedSneaker = new Sneaker(sneakerData, sneakerAttributes)
-      debugger
+      // debugger
       document.querySelector('#sneaker-container').innerHTML += updatedSneaker.renderSneakerCard();
     })
         // debugger
