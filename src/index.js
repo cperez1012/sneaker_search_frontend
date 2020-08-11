@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // document.querySelector(`#update-${e.target.dataset.id}`)
     // debugger
     //  patchSneaker((sneaker, name, description, image_url, category_id))
+    
    } else if (e.target.dataset.action === 'delete') {
      console.log('you pressed delete')
     //  debugger
@@ -33,9 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // debugger
      deleteSneaker(sneaker)
     //  debugger
-     location.reload(endPoint)
+    
     // This is the associated instance 
-   }  
+   } 
+    
   });
   document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
 });
@@ -76,9 +78,11 @@ function patchSneaker(sneaker, name, description, image_url, category_id) {
       let updatedSneaker = new Sneaker(sneakerData, sneakerAttributes)
       // debugger
       document.querySelector('#sneaker-container').innerHTML += updatedSneaker.renderSneakerCard();
+      location.reload(endPoint)
     })
         // debugger
     // })
+    
 }
 
 function getSneakers() {
@@ -119,6 +123,7 @@ function deleteSneaker(sneaker) {
     
   })
   .then(response => response.json());
+  location.reload(endPoint)
 }
 
 // function render(sneaker) {

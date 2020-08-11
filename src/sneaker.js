@@ -94,7 +94,6 @@ class Sneaker {
               <option value="3">Running</option>
           </select>
           <br><br>
-
           <input id='edit button' type="submit" name="submit" value="Edit Sneaker" class="submit">
       </form>
 
