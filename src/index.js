@@ -17,9 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const sneaker = Sneaker.findById(id);
     // console.log(sneaker);
     // debugger
+
    if (e.target.dataset.action === 'edit') {
      console.log('you pressed edit')
-     document.querySelector('#sneaker-container').innerHTML = sneaker.renderUpdateForm();
+     const editSneaker = document.querySelector('#sneaker-container')
+     editSneaker.innerHTML = sneaker.renderUpdateForm();
+      
     //  document.querySelector('#update-sneaker').addEventListener("submit", (e) => updateFormHandler(e))
     // document.querySelector(`#update-${e.target.dataset.id}`)
     // debugger
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //  debugger
     //  document.querySelector(`${sneaker.id}`).remove()
     // debugger
-    document.querySelector(`#delete-${e.target.dataset.id}`)
+    // document.querySelector(`#delete-${e.target.dataset.id}`)
     // debugger
      deleteSneaker(sneaker)
     //  debugger
@@ -40,7 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
   });
   document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
+  const sneakerEl = document.getElementById('create-button')
+
+  const sneakerDiv = document.getElementById('create-message')
+
+  const onSneakerClick = function() {
+    sneakerDiv.textContent = "You've Created a New Sneaker, Please look at the newly added Sneaker on your list below!"
+  }
+
+  sneakerEl.addEventListener("click", onSneakerClick)
 });
+
 
 function updateFormHandler(e) {
   e.preventDefault();
@@ -123,21 +136,10 @@ function deleteSneaker(sneaker) {
     
   })
   .then(response => response.json());
-  location.reload(endPoint)
+debugger
+location.reload(endPoint) 
 }
 
-// function render(sneaker) {
-//   const sneakerMarkup = `
-//     <div data-id=${sneaker.id}>
-//       <img src=${sneaker.attributes.image_url} height="200" width="250">
-//       <h3>${sneaker.attributes.name}</h3>
-//       <p>${sneaker.attributes.category.name}</p>
-//       <button data-id=${sneaker.id}>edit</button>
-//     </div>
-//   <br><br>`;
-
-//   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
-// }
 
 function createFormHandler(e) {
   e.preventDefault()
@@ -162,27 +164,11 @@ function postSneaker(name, description, image_url, category_id) {
   })
   .then(response => response.json())
   .then(sneaker => {
-    // console.log(sneaker)
-
-    // render JSON response
-    // const sneakerMarkup = `
-    // <div data-id=${sneaker.id}>
-    //   <img src=${sneakerData.attributes.image_url} height="200" width="250">
-    //   <h3>${sneakerData.attributes.name}</h3>
-    //   <p>${sneakerData.attributes.category.name}</p>
-    //   <button data-id=${sneakerData.attributes.id}>edit</button>
-    // </div>
-    // <br><br>`;
-
-    // document.querySelector('#sneaker-container').innerHTML += sneakerMarkup;
-    // render(sneakerData)
-    // Using the newSneaker defined variable in my post request and changing it to sneakerData
-    // debugger
 
     let newSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
     // debugger
        
     document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();  
   }) 
-
+// location.reload(endPoint)
 }
