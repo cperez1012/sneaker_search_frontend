@@ -15,32 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const id = parseInt(e.target.dataset.id);
     const sneaker = Sneaker.findById(id);
-    // console.log(sneaker);
-    // debugger
 
    if (e.target.dataset.action === 'edit') {
      console.log('you pressed edit')
      const editSneaker = document.querySelector('#sneaker-container')
      editSneaker.innerHTML = sneaker.renderUpdateForm();
       
-    //  document.querySelector('#update-sneaker').addEventListener("submit", (e) => updateFormHandler(e))
-    // document.querySelector(`#update-${e.target.dataset.id}`)
-    // debugger
-    //  patchSneaker((sneaker, name, description, image_url, category_id))
-    
    } else if (e.target.dataset.action === 'delete') {
      console.log('you pressed delete')
-    //  debugger
-    //  document.querySelector(`${sneaker.id}`).remove()
-    // debugger
-    // document.querySelector(`#delete-${e.target.dataset.id}`)
-    // debugger
+
      deleteSneaker(sneaker)
-    //  debugger
-    
-    // This is the associated instance 
-   } 
-    
+
+   }
+
   });
   document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
   const sneakerEl = document.getElementById('create-button')
@@ -61,15 +48,14 @@ function updateFormHandler(e) {
   const sneaker = Sneaker.findById(id)
   const name = e.target.querySelector('#input-name').value
   const description = e.target.querySelector('#input-description').value
-  const image_url = e.target.querySelector('#input-url').value
-  // debugger
-  const category_id = parseInt(e.target.querySelector('#input-categories').value)
-  
-  patchSneaker(sneaker, name, description, image_url, category_id)
+  const imageUrl = e.target.querySelector('#input-url').value
+  const categoryId = parseInt(e.target.querySelector('#input-categories').value)
+
+  patchSneaker(sneaker, name, description, imageUrl, categoryId)
 }
 
-function patchSneaker(sneaker, name, description, image_url, category_id) {
-  const bodyJSON = { name, description, image_url, category_id }
+function patchSneaker(sneaker, name, description, imageUrl, categoryId) {
+  const bodyJSON = { name, description, imageUrl, categoryId }
   fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
     method: "PATCH",
     headers: {
@@ -79,50 +65,44 @@ function patchSneaker(sneaker, name, description, image_url, category_id) {
     body: JSON.stringify(bodyJSON),
   })
     .then(response => response.json())
-    // our backend responds with the updated sneaker instance represented as JSON
-    // .then(updatedNote => console.log(updatedNote))
+
     .then(sneaker => {
       console.log(sneaker)
-      // debugger
-      // const updatedSneaker = new Sneaker(sneaker)
-      const sneakerData = sneaker.data  
-      const sneakerAttributes = sneaker.data.attributes
-      // debugger
+
       let updatedSneaker = new Sneaker(sneakerData, sneakerAttributes)
-      // debugger
+
       document.querySelector('#sneaker-container').innerHTML += updatedSneaker.renderSneakerCard();
       location.reload(endPoint)
     })
-        // debugger
-    // })
-    
 }
 
 function getSneakers() {
   fetch(endPoint)
   .then(response => response.json())
   .then(sneakers => {
-    sneakers.data.forEach(sneaker => {
-        // debugger
-        // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-        // const sneakerMarkup = `
-        //   <div data-id=${sneaker.id}>
-        //     <img src=${sneaker.attributes.image_url} height="200" width="250">
-        //     <h3>${sneaker.attributes.name}</h3>
-        //     <p>${sneaker.attributes.category.name}</p>
-        //     <button data-id=${sneaker.id}>edit</button>
-        //   </div>
-        //   <br><br>`;
 
-        //   document.querySelector('#sneaker-container').innerHTML += sneakerMarkup
-        let newSneaker = new Sneaker(sneaker, sneaker.attributes)
-        // debugger
-        document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();
-        // render(sneaker)
-        // debugger
-      })
-      // .catch(err => console.log(err))
+    const mappedSneakers = sneakers.data.map( e => e)
+    mappedSneakers.sort( (a, b) => {
+      
+      if ( a.attributes.name < b.attributes.name ){
+        return -1;
+      }
+      if ( a.attributes.name > b.attributes.name ){
+        return 1;
+      }
+      return 0;
     })
+
+    console.log(`sneakers.data are equal? ${sneakers.data == mappedSneakers}`)
+  
+    mappedSneakers.forEach(sneaker => {
+
+        let newSneaker = new Sneaker(sneaker, sneaker.attributes)
+
+        document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();
+
+    })
+  })
 }
 
 function deleteSneaker(sneaker) {
@@ -136,7 +116,7 @@ function deleteSneaker(sneaker) {
     
   })
   .then(response => response.json());
-debugger
+
 location.reload(endPoint) 
 }
 
@@ -147,14 +127,15 @@ function createFormHandler(e) {
   const descriptionInput = document.querySelector('#input-description').value
   const imageInput = document.querySelector('#input-url').value
   const categoryId = parseInt(document.querySelector('#categories').value)
+
   postSneaker(nameInput, descriptionInput, imageInput, categoryId)
 }
 
-function postSneaker(name, description, image_url, category_id) {
+function postSneaker(name, description, imageUrl, categoryId) {
   // confirm these values are coming through properly
   // build body object
-  
-  const bodyData = {name, description, image_url, category_id}
+
+  const bodyData = {name, description, imageUrl, categoryId}
 
   fetch(endPoint, {
     // POST request
@@ -166,9 +147,7 @@ function postSneaker(name, description, image_url, category_id) {
   .then(sneaker => {
 
     let newSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
-    // debugger
        
     document.querySelector('#sneaker-container').innerHTML += newSneaker.renderSneakerCard();  
-  }) 
-// location.reload(endPoint)
+  })
 }

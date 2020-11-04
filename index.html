@@ -6,14 +6,23 @@
     <script type="text/javascript" src="src/sneaker.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <link href="index.css" rel="stylesheet">
-    <img src="src/image/LogoMakr_36FSGP.png" alt="Sneaker Search" width=600 height=400> 
+    <img src="src/image/LogoMakr-4q9KfD.png" alt="Sneaker Search" width=600 height=400> 
     <p>Sneaker Search is a sneaker catalog application , where the user can create a sneaker object that allows the user to submit a form and include the sneaker name, description of the sneaker, sneaker image, and sneaker category name ranging from Basketball, Running, and Lifestyle sneakers.</p>
   </head>
+  <style>
+    body {
+      background-image: url("src/image/LogoMakr_36FSGP.png");
+      background-repeat: repeat;
+      background-position: center;
+      margin-right: 200px;
+      background-attachment: fixed;
+    }
+</style>
   <body>
     <div id='create-message'></div>
     <div class="form-container">
       <!-- <form id="create-sneaker-form" style=""> -->
-      <form id="create-sneaker-form" style="">
+      <form id="create-sneaker-form" style="border-block-end-color: cornsilk;">
         <h3>Catalog Your Sneakers!</h3>
     
         <input id='input-name' type="text" name="name" value="" placeholder="Enter your sneaker name..." class="input-text">
@@ -25,9 +34,9 @@
     
         <p>Select the appropiate Sneaker Category</p>
         <select id="categories" name="categories">
-          <option value="1">Basketball</option>
-          <option value="2">Lifestyle</option>
-          <option value="3">Running</option>
+          <option value=1>Basketball</option>
+          <option value=2>Lifestyle</option>
+          <option value=3>Running</option>
         </select>
         <br><br>
     
@@ -49,5 +58,6 @@
     <div id="delete-sneaker">
       
     </div>
+
   </body>
 </html>
