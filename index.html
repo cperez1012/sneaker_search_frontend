@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <meta charset="utf-8">
     <title>Sneaker Search</title>
     <script type="text/javascript" src="src/sneaker.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <link href="index.css" rel="stylesheet">
-    <img src="src/image/LogoMakr-4q9KfD.png" alt="Sneaker Search" width=600 height=400> 
+    <img src="src/image/LogoMakr-4q9KfD.png" alt="Sneaker Search" width=600 height=400>
     <p>Sneaker Search is a sneaker catalog application , where the user can create a sneaker object that allows the user to submit a form and include the sneaker name, description of the sneaker, sneaker image, and sneaker category name ranging from Basketball, Running, and Lifestyle sneakers.</p>
   </head>
   <style>
@@ -17,8 +18,14 @@
       margin-right: 200px;
       background-attachment: fixed;
     }
-</style>
+  </style>
   <body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <!-- Display Google sign-in button -->
+    <div id="gSignIn"></div>
+
+    <!-- Show the user profile details -->
+    <div class="userContent" style="display: none;"></div>
     <div id='create-message'></div>
     <div class="form-container">
       <!-- <form id="create-sneaker-form" style=""> -->
@@ -47,7 +54,6 @@
 
     <br><br>
     <div id="sneaker-container">
- 
 
     </div>
 
