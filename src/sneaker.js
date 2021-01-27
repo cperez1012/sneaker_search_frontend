@@ -9,15 +9,16 @@ class Sneaker {
 
         Sneaker.all.push(this)
         console.log(this)
-        debugger
+        // debugger
         // Push all instances of this to the array
     }
 
     update(sneakerData, sneakerAttributes) {
+      debugger
       this.id =  sneakerData.id
       this.name = sneakerAttributes.name
       this.description = sneakerAttributes.description
-      debugger
+      // debugger
       this.imageUrl = sneakerAttributes.imageUrl
       this.category.name = sneakerAttributes.category.name
     }
@@ -26,9 +27,9 @@ class Sneaker {
           return `
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <img src=${this.imageUrl} class="card-img-top" alt="...">
+              <img src=${this.imageUrl} onmouseover="style.resize" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">${this.name}</h5>
+                <h5 class="card-title" onmouseover="style.color='red'" onmouseout="style.color='black'">${this.name}</h5>
                 <p class="card-text">${this.description}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
@@ -49,15 +50,16 @@ class Sneaker {
           <h3>Edit a Sneaker!</h3>
           
           <label>Sneaker Name</label>
-          <input id='input-name' type="text" name="name" value="${this.name}" class="input-text">
+          <input id='input-name' type="text" name="name" value="${this.name}" class="input-text" onfocus="myFunction(this)">
           <br><br>
 
           <label>Sneaker Description</label>
-          <textarea id='input-description' name="description" rows="8"  cols="80" value="${this.description}">${this.description}</textarea>
+          <textarea id='input-description' name="description" rows="8"  cols="80" value="${this.description}" onfocus="myFunction(this)">${this.description}"</textarea>
           <br><br>
 
           <label>Image URL</label>
-          <input id='input-url' type="text" name="image" value="${this.imageUrl}" class="input-text">
+          <img src=${this.imageUrl} class="card-img-top" alt="...">
+          <input id='input-url' type="text" name="image" value="${this.imageUrl}" class="input-text" onfocus="myFunction(this)">
           <br><br>
 
           <label>Sneaker Category</label>
