@@ -2,6 +2,7 @@ class Sneaker {
     // We give two arguments, one for the sneaker data and the other for the sneaker attributes (we can call it whatever we want so we chose sneakerAttributes)
     constructor(sneaker, sneakerAttributes) {
         this.id = sneaker.id
+        debugger
         this.name = sneakerAttributes.name
         this.description = sneakerAttributes.description
         this.imageUrl = sneakerAttributes.imageUrl
@@ -14,7 +15,7 @@ class Sneaker {
     }
 
     update(sneakerData, sneakerAttributes) {
-      debugger
+      // debugger
       this.id =  sneakerData.id
       this.name = sneakerAttributes.name
       this.description = sneakerAttributes.description
@@ -64,6 +65,7 @@ class Sneaker {
 
           <label>Sneaker Category</label>
           <select id='input-categories' type="text" name="categories" value="${this.category.name}">
+              <option value=0>--Select Category--</option>
               <option value=1>Basketball</option>
               <option value=2>Lifestyle</option>
               <option value=3>Running</option>
