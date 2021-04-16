@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
-
+   
   document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
   const sneakerEl = document.getElementById('create-button')
 
@@ -52,13 +52,16 @@ function updateFormHandler(e) {
   const name = e.target.querySelector('#input-name').value
   const description = e.target.querySelector('#input-description').value
   const imageUrl = e.target.querySelector('#input-url').value
+   
+  const quantity = e.target.querySelector('#input-quantity').value
+  const shoeSize = e.target.querySelector('#input-shoeSize').value
   const categoryId = parseInt(e.target.querySelector('#input-categories').value)
 
-  patchSneaker(sneaker, name, description, imageUrl, categoryId)
+  patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, categoryId)
 }
 
-function patchSneaker(sneaker, name, description, imageUrl, categoryId) {
-  const bodyJSON = { name, description, imageUrl, categoryId }
+function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, categoryId) {
+  const bodyJSON = { name, description, imageUrl, quantity, shoeSize, categoryId }
   fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
   // fetch(`http://localhost:3000/api/v2/sneakers/${sneaker.id}`, {
     method: "PATCH",
@@ -72,7 +75,7 @@ function patchSneaker(sneaker, name, description, imageUrl, categoryId) {
 
     .then(sneaker => {
       console.log(sneaker)
-      // debugger
+      //  
       let updatedSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
 
       let sneakerContainer = document.querySelector('#sneaker-container') 
@@ -136,16 +139,18 @@ function createFormHandler(e) {
   const nameInput = document.querySelector('#input-name').value
   const descriptionInput = document.querySelector('#input-description').value
   const imageInput = document.querySelector('#input-url').value
+  const quantityInput = document.querySelector('#input-quantity').value
+  const shoeSizeInput = document.querySelector('#input-shoeSize').value
   const categoryId = parseInt(document.querySelector('#categories').value)
 
-  postSneaker(nameInput, descriptionInput, imageInput, categoryId)
+  postSneaker(nameInput, descriptionInput, imageInput, quantityInput, shoeSizeInput, categoryId)
 }
 
-function postSneaker(name, description, imageUrl, categoryId) {
+function postSneaker(name, description, imageUrl, quantity, shoeSize, categoryId) {
   // confirm these values are coming through properly
   // build body object
 
-  const bodyData = {name, description, imageUrl, categoryId}
+  const bodyData = {name, description, imageUrl, quantity, shoeSize, categoryId}
 
   fetch(endPoint, {
     // POST request
@@ -155,6 +160,7 @@ function postSneaker(name, description, imageUrl, categoryId) {
   })
   .then(response => response.json())
   .then(sneaker => {
+     
 
     let newSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
 
