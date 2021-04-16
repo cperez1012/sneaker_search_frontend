@@ -7,17 +7,9 @@
     <script type="text/javascript" src="src/sneaker.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <link href="index.css" rel="stylesheet">
-    <img src="src/image/LogoMakr-4q9KfD.png" alt="Sneaker Search" width=600 height=400>
+    <img src="src/image/NewLogo.png" alt="Sneaker Search" width=600 height=400>
     <p>Sneaker Search is a sneaker catalog application , where the user can create a sneaker object that allows the user to submit a form and include the sneaker name, description of the sneaker, sneaker image, and sneaker category name ranging from Basketball, Running, and Lifestyle sneakers.</p>
   </head>
-  <style>
-    body {
-      background-image: url("src/image/LogoMakr_36FSGP.png");
-      background-repeat: repeat;
-      background-position: center;
-      background-attachment: fixed;
-    }
-  </style>
   <body>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <!-- Display Google sign-in button -->
@@ -29,7 +21,8 @@
     <div class="form-container">
       <!-- <form id="create-sneaker-form" style=""> -->
       <form id="create-sneaker-form" style="border-block-end-color: cornsilk;">
-        <h3>Catalog Your Sneakers!</h3>
+        <br>
+        <h3>CATALOG YOUR SNEAKERS</h3>
     
         <input id='input-name' type="text" name="name" value="" placeholder="Enter your sneaker name..." class="input-text">
         <br><br>
@@ -37,27 +30,34 @@
         <br><br>
         <input id='input-url' type="text" name="image" value="" placeholder="Enter your sneaker image URL..." class="input-text">
         <br><br>
-    
-        <p>Select the appropiate Sneaker Category</p>
+        <label>Quantity:</label>
+        <input id='input-quantity' type="number" name="quantity" value="" placeholder="Enter quantity" class="input-number" min="0" max="100" step="1">
+        <br><br>
+        <label>Shoe Size:</label>
+        <input id='input-shoeSize' type="number" name="shoeSize" value="" placeholder="Enter shoe size" class="input-number" data-decimals="1" min="0" max="15" step="0.5">
+        <br><br>
+        <label>Select the appropiate Sneaker Category</label>
+        <br><br>
         <select id="categories" name="categories">
           <option value=0>--Select Category--</option>
-          <option value=1>Basketball</option>
-          <option value=2>Lifestyle</option>
-          <option value=3>Running</option>
+          <option value=4>Basketball</option>
+          <option value=5>Lifestyle</option>
+          <option value=6>Running</option>
         </select>
         <br><br>
     
         <input id= 'create-button' type="submit" name="submit" value="Create New Sneaker Data" class="submit">
+        <br><br>
       </form>
     
     </div>
 
     <br><br>
-    <div id="sneaker-container">
+    <div id="sneaker-container" class="sneaker-containers">
 
     </div>
 
-    <div id="update-sneaker">
+    <div id="update-sneaker" class="sneaker-containers">
 
     </div>
 
