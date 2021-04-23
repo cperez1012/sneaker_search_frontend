@@ -84,9 +84,9 @@ class Sneaker {
           <p>Must select a category, if category is the same please reselect it.</p>
           <select id='input-categories' type="text" name="categories" value="${this.category.name}">
               <option value=0>--Select Category--</option>
-              <option value=4>Basketball</option>
-              <option value=5>Lifestyle</option>
-              <option value=36>Running</option>
+              <option value=1>Basketball</option>
+              <option value=2>Lifestyle</option>
+              <option value=3>Running</option>
           </select>
           <br><br>
           <input id='edit button' type="submit" name="submit" value="Edit Sneaker" class="submit">
