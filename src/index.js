@@ -1,5 +1,4 @@
 const endPoint = "http://localhost:3000/api/v1/sneakers"
-// const endPoint = "http://localhost:3000/api/v2/sneakers"
 
 document.addEventListener('DOMContentLoaded', () => {
   // fetch and load sneakers
@@ -63,7 +62,7 @@ function updateFormHandler(e) {
 function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, categoryId) {
   const bodyJSON = { name, description, imageUrl, quantity, shoeSize, categoryId }
   fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
-  // fetch(`http://localhost:3000/api/v2/sneakers/${sneaker.id}`, {
+  
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -72,10 +71,10 @@ function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, 
     body: JSON.stringify(bodyJSON),
   })
     .then(response => response.json())
-
+    
     .then(sneaker => {
       console.log(sneaker)
-      //  
+      debugger
       let updatedSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
 
       let sneakerContainer = document.querySelector('#sneaker-container') 
@@ -83,6 +82,7 @@ function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, 
      sneakerContainer.innerHTML += updatedSneaker.renderSneakerCard();
       location.reload(endPoint)
     })
+    // location.reload(endPoint)
 }
 
 function getSneakers() {
@@ -102,6 +102,8 @@ function getSneakers() {
       return 0;
     })
 
+    // debugger
+
     console.log(`sneakers.data are equal? ${sneakers.data == mappedSneakers}`)
   
     mappedSneakers.forEach(sneaker => {
@@ -120,7 +122,7 @@ function getSneakers() {
 function deleteSneaker(sneaker) {
 
   fetch(`http://localhost:3000/api/v1/sneakers/${sneaker.id}`, {
-  // fetch(`http://localhost:3000/api/v2/sneakers/${sneaker.id}`, {
+
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -166,6 +168,7 @@ function postSneaker(name, description, imageUrl, quantity, shoeSize, categoryId
 
     let sneakerContainer = document.querySelector('#sneaker-container')
        
-    sneakerContainer.innerHTML += newSneaker.renderSneakerCard();  
+    sneakerContainer.innerHTML += newSneaker.renderSneakerCard();
+    location.reload(endPoint) 
   })
 }
