@@ -83,7 +83,7 @@ class Sneaker {
           <h3>Current Category: ${this.category.name}</h3>
           <p>Must select a category, if category is the same please reselect it.</p>
           <select id='input-categories' type="text" name="categories" value="${this.category.name}">
-              <option value=0>--Select Category--</option>
+              <option value="">--Select Category--</option>
               <option value=1>Basketball</option>
               <option value=2>Lifestyle</option>
               <option value=3>Running</option>

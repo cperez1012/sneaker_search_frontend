@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
      editSneaker.innerHTML = sneaker.renderUpdateForm();
       
    } else if (e.target.dataset.action === 'delete') {
+     window.alert("You deleted your sneaker")
      console.log('you pressed delete')
 
      deleteSneaker(sneaker)
@@ -73,16 +74,23 @@ function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, 
     .then(response => response.json())
     
     .then(sneaker => {
-      console.log(sneaker)
-      debugger
+      // debugger
       let updatedSneaker = new Sneaker(sneaker.data, sneaker.data.attributes)
 
       let sneakerContainer = document.querySelector('#sneaker-container') 
 
      sneakerContainer.innerHTML += updatedSneaker.renderSneakerCard();
-      location.reload(endPoint)
-    })
-    // location.reload(endPoint)
+     
+     location.reload(endPoint)
+     if(sneaker.data.attributes.category.id !== 0){
+       window.confirm("You edited your sneaker")
+       // }else if (sneaker.data.attributes.category.id === undefined){
+         //   window.alert("Please input and select all fields");
+        }else{
+          window.confirm("You must enter all fields")
+        }
+      })
+       // location.reload(endPoint)
 }
 
 function getSneakers() {
