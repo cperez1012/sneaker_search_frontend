@@ -15,22 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const id = parseInt(e.target.dataset.id);
     const sneaker = Sneaker.findById(id);
-
-   if (e.target.dataset.action === 'edit') {
-     console.log('you pressed edit')
-     const editSneaker = document.querySelector('#sneaker-container')
-     editSneaker.innerHTML = sneaker.renderUpdateForm();
-      
-   } else if (e.target.dataset.action === 'delete') {
-     window.alert("You deleted your sneaker")
-     console.log('you pressed delete')
-
-     deleteSneaker(sneaker)
-
-   }
-
-  });
-
+    if (e.target.dataset.action === 'edit') {
+      console.log('you pressed edit')
+      const editSneaker = document.querySelector('#sneaker-container')
+      // debugger
+      editSneaker.innerHTML = sneaker.renderUpdateForm();
+       
+    } else if (e.target.dataset.action === 'delete') {
+      // window.alert("You deleted your sneaker")
+      console.log('you pressed delete')
+ 
+      deleteSneaker(sneaker)
+ 
+    }
+ 
+   });
    
   document.querySelector('#sneaker-container').addEventListener("submit", (e) => updateFormHandler(e))
   const sneakerEl = document.getElementById('create-button')
@@ -40,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const onSneakerClick = function() {
     sneakerDiv.textContent = "You've Created a New Sneaker, Please look at the newly added Sneaker on your list below!"
   }
+  // debugger
 
   sneakerEl.addEventListener("click", onSneakerClick)
 });
@@ -79,18 +79,11 @@ function patchSneaker(sneaker, name, description, imageUrl, quantity, shoeSize, 
 
       let sneakerContainer = document.querySelector('#sneaker-container') 
 
-     sneakerContainer.innerHTML += updatedSneaker.renderSneakerCard();
-     
-     location.reload(endPoint)
-     if(sneaker.data.attributes.category.id !== 0){
-       window.confirm("You edited your sneaker")
-       // }else if (sneaker.data.attributes.category.id === undefined){
-         //   window.alert("Please input and select all fields");
-        }else{
-          window.confirm("You must enter all fields")
-        }
-      })
-       // location.reload(endPoint)
+      sneakerContainer.innerHTML += updatedSneaker.renderSneakerCard();
+      //  location.reload(endPoint)
+    })
+    window.confirm("You edited your sneaker")
+  location.reload(endPoint)
 }
 
 function getSneakers() {
@@ -139,8 +132,8 @@ function deleteSneaker(sneaker) {
     
   })
   .then(response => response.json());
-
-location.reload(endPoint) 
+  window.alert("You deleted your sneaker")
+  location.reload(endPoint)
 }
 
 
@@ -177,6 +170,7 @@ function postSneaker(name, description, imageUrl, quantity, shoeSize, categoryId
     let sneakerContainer = document.querySelector('#sneaker-container')
        
     sneakerContainer.innerHTML += newSneaker.renderSneakerCard();
+    window.confirm("You created a new sneaker!")
     location.reload(endPoint) 
   })
 }
